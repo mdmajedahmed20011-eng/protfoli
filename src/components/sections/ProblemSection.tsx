@@ -2,75 +2,58 @@
 
 import { motion } from "framer-motion";
 
-import { SectionLabel } from "@/components/ui/SectionLabel";
-
-const problems = [
-  "Spending hours editing when you should be closing deals",
-  "Generic content that blends in instead of standing out",
-  "Inconsistent posting that kills your algorithm reach",
-];
+import { heroStats } from "@/lib/mzmedia-data";
 
 export function ProblemSection() {
   return (
-    <section className="section-shell bg-[var(--color-bg-primary)]">
+    <section className="bg-[#070707] py-16 md:py-20">
       <div className="container">
-        <div className="grid gap-12 lg:grid-cols-[0.45fr_0.55fr]">
+        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 28 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
-            <SectionLabel label="The Problem" />
-            <h2 className="font-heading text-[32px] font-extrabold leading-[1.15] tracking-[-0.04em] text-[var(--color-text-primary)] md:text-[42px] lg:text-[48px]">
+            <p className="text-[12px] uppercase tracking-[0.34em] text-[#7A7A7A]">
+              the problem
+            </p>
+            <h2 className="mt-4 max-w-[640px] font-heading text-[34px] font-extrabold leading-[1.04] tracking-[-0.05em] text-white md:text-[46px] lg:text-[64px]">
               Tired of{" "}
-              <span className="decoration-[var(--color-accent)] decoration-2 line-through">
+              <span className="text-[#BEBEBE] line-through decoration-white/30">
                 boring
               </span>{" "}
-              video content that{" "}
-              <span className="underline decoration-[var(--color-accent)] decoration-dashed underline-offset-4">
-                doesn&apos;t stand out
-              </span>
-              ?
+              video content that don&apos;t stand out? It&apos;s time to
+              upgrade the game with us!
             </h2>
-            <p className="mt-4 text-lg font-semibold text-[var(--color-accent)]">
-              It&apos;s time to upgrade the game with us.
-            </p>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 28 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
+            transition={{ duration: 0.6, ease: "easeOut", delay: 0.08 }}
+            className="grid gap-4 md:grid-cols-3"
           >
-            {problems.map((problem, index) => (
-              <motion.div
-                key={problem}
-                initial={{ opacity: 0, y: 32 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{
-                  duration: 0.6,
-                  ease: "easeOut",
-                  delay: index * 0.1,
-                }}
-                className="mb-4 rounded-xl border border-[var(--color-border)] border-l-[3px] border-l-[var(--color-accent)] bg-[var(--color-bg-secondary)] p-6"
+            {heroStats.map((stat, index) => (
+              <div
+                key={stat.label}
+                className={[
+                  "rounded-[28px] border border-white/10 bg-[#101010] p-6 shadow-[0_20px_70px_rgba(0,0,0,0.35)]",
+                  index === 1 ? "md:translate-y-5" : "",
+                ].join(" ")}
               >
-                <p className="text-base text-[var(--color-text-primary)]">
-                  <span className="mr-3 text-lg text-[var(--color-accent)]">
-                    ❌
-                  </span>
-                  {problem}
+                <div className="font-heading text-[42px] font-extrabold leading-none tracking-[-0.06em] text-white">
+                  {stat.value}
+                </div>
+                <p className="mt-3 text-lg font-medium text-[#E4E4E4]">
+                  {stat.label}
                 </p>
-              </motion.div>
+                <p className="mt-1 text-sm uppercase tracking-[0.22em] text-[#7D7D7D]">
+                  {stat.caption}
+                </p>
+              </div>
             ))}
-            <div className="mt-4 text-center">
-              <p className="text-2xl text-[var(--color-accent)]">↓</p>
-              <p className="mt-2 text-base italic text-[var(--color-text-secondary)]">
-                We handle it all. You just show up and record.
-              </p>
-            </div>
           </motion.div>
         </div>
       </div>

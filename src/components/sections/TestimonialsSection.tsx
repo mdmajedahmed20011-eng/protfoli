@@ -1,72 +1,34 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
-import { SectionLabel } from "@/components/ui/SectionLabel";
-import { TestimonialCard } from "@/components/ui/TestimonialCard";
-import type { Testimonial } from "@/types";
-
-const testimonials: Testimonial[] = [
-  {
-    name: "Alex Johnson",
-    title: "YouTube Creator (500K subs)",
-    quote:
-      "MZ Media completely transformed my channel. My watch time increased by 180% in just 3 months. Their team understands exactly what keeps audiences engaged. Absolutely worth every penny.",
-  },
-  {
-    name: "Sarah Chen",
-    title: "Business Coach",
-    quote:
-      "I was skeptical at first, but the results speak for themselves. My Instagram Reels went from 500 views to 50K average. My course sales doubled in 60 days.",
-  },
-  {
-    name: "Marcus Williams",
-    title: "Online Entrepreneur",
-    quote:
-      "30+ editors sounds like chaos — but the quality and consistency is unreal. They turn around content faster than I can film it. My team of one just became a team of thirty.",
-  },
-  {
-    name: "Priya Sharma",
-    title: "Fitness Coach",
-    quote:
-      "The thumbnail designs alone paid for the whole package. My CTR jumped from 3% to 11%. I've tried 4 other agencies. MZ Media is in a different league.",
-  },
-  {
-    name: "David Park",
-    title: "Digital Marketer",
-    quote:
-      "What sold me was how deeply they understood my audience. It's not just editing — it's strategy. They've essentially built my entire personal brand pipeline.",
-  },
-  {
-    name: "Emma Rodriguez",
-    title: "Course Creator",
-    quote:
-      "Fast, professional, and they actually care about your results. My promotional video generated $40K in sales in the first week. That's not a typo.",
-  },
-];
+import { reviewCards } from "@/lib/mzmedia-data";
 
 export function TestimonialsSection() {
   return (
-    <section className="section-shell bg-[linear-gradient(180deg,#0A0A0A_0%,#0C0C0C_100%)]">
+    <section id="review" className="bg-[#070707] py-16 md:py-24">
       <div className="container">
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="mx-auto max-w-[680px] text-center"
+          className="max-w-[620px]"
         >
-          <div className="flex justify-center">
-            <SectionLabel label="Client Love" />
-          </div>
-          <h2 className="section-heading">Our Clients Speak for Us</h2>
+          <p className="text-[12px] uppercase tracking-[0.34em] text-[#7A7A7A]">
+            Client testimonials
+          </p>
+          <h2 className="mt-4 font-heading text-[34px] font-extrabold leading-[1.04] tracking-[-0.05em] text-white md:text-[50px] lg:text-[64px]">
+            Hear what they’re Saying about us
+          </h2>
         </motion.div>
 
-        <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {testimonials.map((testimonial, index) => (
-            <motion.div
-              key={testimonial.name}
-              initial={{ opacity: 0, y: 40 }}
+        <div className="mt-12 grid gap-6 lg:grid-cols-2 xl:grid-cols-[1.2fr_0.8fr_0.8fr]">
+          {reviewCards.map((item, index) => (
+            <motion.article
+              key={item.name}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{
@@ -74,14 +36,35 @@ export function TestimonialsSection() {
                 ease: "easeOut",
                 delay: index * 0.08,
               }}
-              className={index % 3 === 1 ? "lg:translate-y-8" : ""}
+              className={[
+                "overflow-hidden rounded-[30px] border border-white/10 bg-[#101010]",
+                index === 0 ? "xl:row-span-2" : "",
+              ].join(" ")}
             >
-              <TestimonialCard
-                quote={testimonial.quote}
-                name={testimonial.name}
-                title={testimonial.title}
-              />
-            </motion.div>
+              <div className="relative aspect-[1.15/1] overflow-hidden">
+                <Image
+                  src={item.image}
+                  alt={`${item.name} testimonial`}
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.08)_0%,rgba(0,0,0,0.72)_100%)]" />
+              </div>
+              <div className="p-6">
+                <p className="text-base leading-7 text-white">
+                  {item.quote}
+                </p>
+                {"subquote" in item ? (
+                  <p className="mt-4 text-sm leading-7 text-[#A8A8A8]">
+                    {item.subquote}
+                  </p>
+                ) : null}
+                <div className="mt-5 border-t border-white/10 pt-4">
+                  <p className="font-medium text-[#F0F0F0]">{item.name}</p>
+                  <p className="mt-1 text-sm text-[#7D7D7D]">{item.title}</p>
+                </div>
+              </div>
+            </motion.article>
           ))}
         </div>
       </div>

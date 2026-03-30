@@ -1,18 +1,20 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Link as ScrollLink, scroller } from "react-scroll";
 
 import { Button } from "@/components/ui/Button";
+import { mzmediaAssets } from "@/lib/mzmedia-data";
 import type { NavItem } from "@/types";
 
 const navItems: NavItem[] = [
-  { label: "Services", target: "services" },
-  { label: "Process", target: "process" },
-  { label: "Results", target: "results" },
-  { label: "Pricing", target: "pricing" },
-  { label: "Contact", target: "contact" },
+  { label: "Review", target: "review" },
+  { label: "Work", target: "work" },
+  { label: "Case study", target: "case-study" },
+  { label: "process", target: "process" },
+  { label: "book a call", target: "contact" },
 ];
 
 export function Navbar() {
@@ -43,9 +45,9 @@ export function Navbar() {
       >
         <nav
           className={[
-            "mx-auto flex h-[72px] max-w-[1280px] items-center justify-between px-6 transition-all duration-300 ease-in-out",
+            "mx-auto flex h-[72px] max-w-[1280px] items-center justify-between px-5 transition-all duration-300 ease-in-out md:px-6",
             isScrolled
-              ? "bg-[rgba(10,10,10,0.85)] backdrop-blur-xl"
+              ? "bg-[rgba(10,10,10,0.82)] backdrop-blur-xl"
               : "bg-transparent",
           ].join(" ")}
           aria-label="Primary navigation"
@@ -60,13 +62,19 @@ export function Navbar() {
                 offset: -72,
               })
             }
-            className="font-heading text-[22px] font-extrabold tracking-[-0.04em]"
+            className="flex items-center"
           >
-            <span className="text-[var(--color-accent)]">MZ</span>{" "}
-            <span className="text-white">Media</span>
+            <Image
+              src={mzmediaAssets.logo}
+              alt="MZ Media logo"
+              width={112}
+              height={28}
+              className="h-auto w-[112px]"
+              priority
+            />
           </button>
 
-          <div className="hidden items-center gap-10 lg:flex">
+          <div className="hidden items-center gap-8 xl:flex">
             {navItems.map((item) => (
               <ScrollLink
                 key={item.target}
@@ -76,7 +84,7 @@ export function Navbar() {
                 duration={800}
                 offset={-72}
                 activeClass="!text-[var(--color-accent)]"
-                className="cursor-pointer text-[15px] font-medium text-[var(--color-text-secondary)] transition-colors duration-150 hover:text-white"
+                className="cursor-pointer text-[15px] font-medium capitalize text-[var(--color-text-secondary)] transition-colors duration-150 hover:text-white"
                 aria-label={`Scroll to ${item.label}`}
               >
                 {item.label}
@@ -84,7 +92,7 @@ export function Navbar() {
             ))}
           </div>
 
-          <div className="hidden lg:block">
+          <div className="hidden xl:block">
             <Button
               variant="primary"
               size="sm"
@@ -95,8 +103,9 @@ export function Navbar() {
                   offset: -72,
                 })
               }
+              className="rounded-full bg-white px-5 py-2 text-[13px] font-semibold text-black hover:bg-[#E8E8E8] hover:text-black hover:shadow-none"
             >
-              Book a Free Call
+              Book a call
             </Button>
           </div>
 
@@ -104,7 +113,7 @@ export function Navbar() {
             type="button"
             aria-label={isOpen ? "Close menu" : "Open menu"}
             onClick={() => setIsOpen((open) => !open)}
-            className="relative flex h-11 w-11 items-center justify-center rounded-full border border-[var(--color-border)] bg-[rgba(17,17,17,0.6)] lg:hidden"
+            className="relative flex h-11 w-11 items-center justify-center rounded-full border border-[var(--color-border)] bg-[rgba(17,17,17,0.6)] xl:hidden"
           >
             <motion.span
               animate={isOpen ? { rotate: 45, y: 0 } : { rotate: 0, y: -6 }}
@@ -128,7 +137,7 @@ export function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 flex min-h-screen flex-col bg-[rgba(10,10,10,0.97)] px-6 pb-10 pt-28 backdrop-blur-xl lg:hidden"
+            className="fixed inset-0 z-40 flex min-h-screen flex-col bg-[rgba(10,10,10,0.97)] px-6 pb-10 pt-28 backdrop-blur-xl xl:hidden"
           >
             <div className="flex flex-1 flex-col gap-6">
               {navItems.map((item, index) => (
@@ -145,7 +154,7 @@ export function Navbar() {
                     duration={800}
                     offset={-72}
                     onClick={() => setIsOpen(false)}
-                    className="block cursor-pointer font-heading text-[28px] font-bold text-white"
+                    className="block cursor-pointer font-heading text-[28px] font-bold capitalize text-white"
                     aria-label={`Scroll to ${item.label}`}
                   >
                     {item.label}
@@ -166,7 +175,7 @@ export function Navbar() {
               }}
               className="w-full"
             >
-              Book a Free Call
+              Book a call
             </Button>
           </motion.div>
         ) : null}

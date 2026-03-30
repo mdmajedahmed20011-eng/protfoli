@@ -1,102 +1,86 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
-import { ProcessStep } from "@/components/ui/ProcessStep";
-import { SectionLabel } from "@/components/ui/SectionLabel";
-import type { ProcessStepItem } from "@/types";
-
-const steps: ProcessStepItem[] = [
-  {
-    number: "1",
-    title: "Discovery Call",
-    description:
-      "We understand your project, consumer base, and business goals in a 30-min call.",
-  },
-  {
-    number: "2",
-    title: "Strategy & Planning",
-    description:
-      "We craft a custom content calendar and editing style guide tailored to your brand.",
-  },
-  {
-    number: "3",
-    title: "Production & Editing",
-    description:
-      "Our team of 30+ editors produce high-quality content with fast 48-hour turnaround.",
-  },
-  {
-    number: "4",
-    title: "Deliver & Optimize",
-    description:
-      "Content is delivered, feedback is gathered, and we continuously improve your results.",
-  },
-];
+import { processSteps } from "@/lib/mzmedia-data";
 
 export function ProcessSection() {
   return (
-    <section id="process" className="section-shell bg-[var(--color-bg-primary)]">
+    <section id="process" className="bg-[#070707] py-16 md:py-24">
       <div className="container">
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="mx-auto max-w-[700px] text-center"
+          className="max-w-[650px]"
         >
-          <div className="flex justify-center">
-            <SectionLabel label="How It Works" />
-          </div>
-          <h2 className="section-heading">
-            From Discovery to Delivery in 4 Simple Steps
+          <p className="text-[12px] uppercase tracking-[0.34em] text-[#7A7A7A]">
+            our process
+          </p>
+          <h2 className="mt-4 font-heading text-[34px] font-extrabold leading-[1.04] tracking-[-0.05em] text-white md:text-[50px] lg:text-[64px]">
+            Our strategy to get you leads with content
           </h2>
         </motion.div>
 
-        <div className="relative mt-16 hidden lg:block">
-          <div className="absolute left-[12.5%] right-[12.5%] top-5 h-[2px] border-t border-dashed border-[#222222]" />
-          <motion.div
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 1, ease: "easeOut" }}
-            className="absolute left-[12.5%] right-[12.5%] top-5 h-[2px] origin-left bg-[linear-gradient(90deg,#FF3D00_0%,#FF6B35_100%)]"
-          />
-          <div className="grid grid-cols-4 gap-6">
-            {steps.map((step) => (
-              <ProcessStep
-                key={step.number}
-                number={step.number}
-                title={step.title}
-                description={step.description}
-              />
-            ))}
-          </div>
-        </div>
-
-        <div className="mt-14 grid gap-10 lg:hidden">
-          {steps.map((step, index) => (
-            <div key={step.number} className="relative">
-              {index < steps.length - 1 ? (
-                <div className="absolute left-5 top-12 h-[calc(100%-12px)] w-px bg-[#222222]" />
-              ) : null}
-              <div className="relative flex gap-5">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 border-[var(--color-accent)] bg-[rgba(255,61,0,0.1)] font-heading text-lg font-bold text-[var(--color-accent)]">
+        <div className="mt-12 grid gap-6">
+          {processSteps.map((step, index) => (
+            <motion.article
+              key={step.number}
+              initial={{ opacity: 0, y: 28 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{
+                duration: 0.6,
+                ease: "easeOut",
+                delay: index * 0.06,
+              }}
+              className="grid gap-6 overflow-hidden rounded-[32px] border border-white/10 bg-[#101010] p-6 md:p-8 lg:grid-cols-[0.6fr_1.4fr]"
+            >
+              <div>
+                <p className="font-heading text-[52px] font-extrabold leading-none tracking-[-0.06em] text-white">
                   {step.number}
-                </div>
+                </p>
+                <p className="mt-3 text-sm uppercase tracking-[0.3em] text-[#818181]">
+                  {step.title}
+                </p>
+              </div>
+
+              <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
                 <div>
-                  <h3 className="text-lg font-bold text-[var(--color-text-primary)]">
-                    {step.title}
+                  <h3 className="font-heading text-[28px] font-bold leading-tight text-white">
+                    {step.subtitle}
                   </h3>
-                  <p className="mt-2 text-sm leading-6 text-[var(--color-text-secondary)]">
+                  <p className="mt-4 max-w-[560px] text-[15px] leading-7 text-[#A8A8A8]">
                     {step.description}
                   </p>
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {step.chips.map((chip) => (
+                      <span
+                        key={`${step.number}-${chip}`}
+                        className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs uppercase tracking-[0.22em] text-[#D8D8D8]"
+                      >
+                        {chip}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="relative min-h-[220px] overflow-hidden rounded-[26px] border border-white/10 bg-black/30">
+                  <Image
+                    src={step.visual}
+                    alt={`${step.subtitle} visual`}
+                    fill
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.02)_0%,rgba(0,0,0,0.4)_100%)]" />
                 </div>
               </div>
-            </div>
+            </motion.article>
           ))}
         </div>
       </div>
     </section>
   );
 }
-

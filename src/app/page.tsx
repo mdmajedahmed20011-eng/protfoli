@@ -9,7 +9,6 @@ import { ServicesSection } from "@/components/sections/ServicesSection";
 import { StatsSection } from "@/components/sections/StatsSection";
 import { TeamSection } from "@/components/sections/TeamSection";
 import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
-import { TrustedBySection } from "@/components/sections/TrustedBySection";
 import { VideoShowreelSection } from "@/components/sections/VideoShowreelSection";
 
 export default function HomePage() {
@@ -19,14 +18,13 @@ export default function HomePage() {
       <Navbar />
       <main className="pt-[72px]">
         <HeroSection />
-        <TrustedBySection />
         <ProblemSection />
-        <ServicesSection />
-        <ProcessSection />
-        <StatsSection />
-        <VideoShowreelSection />
         <TestimonialsSection />
+        <VideoShowreelSection />
+        <StatsSection />
         <TeamSection />
+        <ProcessSection />
+        <ServicesSection />
         <PricingSection />
         <CTASection />
       </main>
