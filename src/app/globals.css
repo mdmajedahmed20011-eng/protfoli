@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-bg-primary: #0a0a0a;
+  --color-bg-secondary: #111111;
+  --color-bg-tertiary: #1a1a1a;
+  --color-accent: #ff3d00;
+  --color-accent-hover: #e63600;
+  --color-accent-glow: rgba(255, 61, 0, 0.25);
+  --color-white: #ffffff;
+  --color-text-primary: #f5f5f5;
+  --color-text-secondary: #999999;
+  --color-text-tertiary: #666666;
+  --color-border: #222222;
+  --color-border-accent: rgba(255, 61, 0, 0.4);
+  --color-success: #10b981;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-inter), sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: rgba(255, 61, 0, 0.3);
+  color: var(--color-white);
+}
+
+@layer base {
+  * {
+    @apply border-[var(--color-border)];
+  }
+
+  *:focus-visible {
+    @apply outline-none ring-2 ring-[var(--color-accent)] ring-offset-2 ring-offset-[var(--color-bg-primary)];
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-syne), sans-serif;
+  }
+
+  a {
+    @apply transition-colors duration-150 ease-out;
+  }
+}
+
+@layer components {
+  .section-shell {
+    @apply relative overflow-hidden py-12 md:py-16 lg:py-24;
+  }
+
+  .section-heading {
+    @apply font-heading text-[28px] font-extrabold leading-[1.1] tracking-[-0.04em] text-[var(--color-text-primary)] md:text-[42px] lg:text-[52px];
+  }
+
+  .section-copy {
+    @apply text-base leading-7 text-[var(--color-text-secondary)] md:text-lg;
+  }
+
+  .text-gradient {
+    @apply bg-[linear-gradient(135deg,#FF3D00_0%,#FF6B35_100%)] bg-clip-text text-transparent;
+  }
+}
+
